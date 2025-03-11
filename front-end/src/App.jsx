@@ -1,9 +1,17 @@
-import { Button } from "@/components/ui/button"
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './Views/HomePage';
+import Gastos from './Views/Gastos';
+
 
 function App() {
-
-  return <Button variant="secondary">Secondary</Button>
-
+ return (
+   <Router>
+     <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/gastos" element={<Gastos />} />
+      </Routes>
+   </Router>
+ )
 }
 
 export default App
