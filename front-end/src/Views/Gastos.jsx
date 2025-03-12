@@ -1,8 +1,11 @@
 import React from 'react'
 import { Button } from "@/components/ui/button";
 import { Plus } from 'lucide-react'; 
+import { useBudget } from '../Contex/useBudget';
 
 function Gastos() {
+    const {state}= useBudget()
+
     const gastado = 0.00.toFixed(2);
     return (
         <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100 relative'>
@@ -12,7 +15,7 @@ function Gastos() {
                     <div className='bg-red-500 p-4 mr-4 text-white'>Aqui va la grafica</div>
                     <div className='flex flex-col items-center'>
                         <Button variant="outline" className="w-full">Reset APP</Button>
-                        <h1 className='text-blue-500 font-bold mt-4'>Presupuesto: <label className='font-bold text-black'>${gastado}</label></h1>
+                        <h1 className='text-blue-500 font-bold mt-4'>Presupuesto: <label className='font-bold text-black'>${state.budget}</label></h1>
                         <h1 className='text-blue-500 font-bold mt-4'>Disponible: <label className='font-bold text-black'>${gastado}</label></h1>
                         <h1 className='text-blue-500 font-bold mt-4'>Gastado: <label className='font-bold text-black'>${gastado}</label></h1>
                     </div>
@@ -22,8 +25,8 @@ function Gastos() {
             <div className='flex flex-col items-center justify-center border border-gray-400 border-opacity-50 p-9 rounded-md mt-8 w-full max-w-md'>
                 <div className='flex items-center w-full'>
                     <div className='mr-4 w-full'>Filtrar gastos</div>
-                    <select className='border border-gray-300 rounded-md p-2 mb-4 w-full'>
-                        <option value='0' selected>--Seleccione--</option>
+                    <select defaultValue="0" className='border border-gray-300 rounded-md p-2 mb-4 w-full'>
+                        <option value='0' disabled>--Seleccione--</option>
                         <option value='1'>Ahorro</option>
                         <option value='2'>Comida</option>
                         <option value='3'>Casa</option>
