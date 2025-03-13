@@ -2,9 +2,15 @@ import React from 'react'
 import { Button } from "@/components/ui/button";
 import { Plus } from 'lucide-react'; 
 import { useBudget } from '../Contex/useBudget';
+import { useContext } from 'react';
+import { ModalContext } from '../Contex/ContexModal.jsx';
+import { createPortal } from 'react-dom';
+import Modal from './Modal.jsx';
 
 function Gastos() {
     const {state}= useBudget()
+      const {showModal, openModal, closeModal } = useContext(ModalContext)
+    
 
     const gastado = 0.00.toFixed(2);
     return (
@@ -44,9 +50,14 @@ function Gastos() {
                 </div>
             </div>
 
-            <Button className="rounded-full w-12 h-12 p-0 flex items-center justify-center bg-black text-white fixed bottom-8 right-8">
+            <Button className="rounded-full w-12 h-12 p-0 flex items-center justify-center bg-black text-white fixed bottom-8 right-8"
+            onClick={() => openModal()}>
                 <Plus className="h-6 w-6" /> 
             </Button>
+            {showModal && createPortal(
+                    <Modal onClose={() => closeModal()} />,
+                    document.body
+                  )}
         </div>
     )
 }
