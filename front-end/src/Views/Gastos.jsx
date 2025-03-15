@@ -1,11 +1,12 @@
 import React from 'react'
 import { Button } from "@/components/ui/button";
-import { Plus } from 'lucide-react'; 
+import { List, Plus } from 'lucide-react'; 
 import { useBudget } from '../Contex/useBudget';
 import { useContext } from 'react';
 import { ModalContext } from '../Contex/ContexModal.jsx';
 import { createPortal } from 'react-dom';
 import Modal from './Modal.jsx';
+import ListaGastos from './ListaGastos.jsx';
 
 function Gastos() {
     const {state}= useBudget()
@@ -22,7 +23,7 @@ function Gastos() {
                     <div className='flex flex-col items-center'>
                         <Button variant="outline" className="w-full">Reset APP</Button>
                         <h1 className='text-blue-500 font-bold mt-4'>Presupuesto: <label className='font-bold text-black'>${state.budget}</label></h1>
-                        <h1 className='text-blue-500 font-bold mt-4'>Disponible: <label className='font-bold text-black'>${gastado}</label></h1>
+                        <h1 className='text-blue-500 font-bold mt-4'>Disponible: <label className='font-bold text-black'>${state.totalAmount }</label></h1>
                         <h1 className='text-blue-500 font-bold mt-4'>Gastado: <label className='font-bold text-black'>${gastado}</label></h1>
                     </div>
                 </div>
@@ -46,7 +47,7 @@ function Gastos() {
 
             <div className='flex flex-col items-center justify-center border border-gray-400 border-opacity-50 p-9 rounded-md mt-8 w-full max-w-md'>
                 <div className='flex items-center justify-center w-full'>
-                    <h1 className='font-bold mb-4'>Listado de Gastos</h1>
+                    <ListaGastos className="w-full" />
                 </div>
             </div>
 
