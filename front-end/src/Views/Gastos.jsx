@@ -47,7 +47,12 @@ function Gastos() {
 
             <div className='flex flex-col items-center justify-center border border-gray-400 border-opacity-50 p-9 rounded-md mt-8 w-full max-w-md'>
                 <div className='flex items-center justify-center w-full'>
-                    <ListaGastos className="w-full" />
+                  { state.expenses?.length > 0 ? (
+                    
+                     <ListaGastos className="w-full" />
+                  ) : 
+                    <p>No hay gastos registrados</p>
+                  }
                 </div>
             </div>
 

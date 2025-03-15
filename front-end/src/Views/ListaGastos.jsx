@@ -22,7 +22,7 @@ function ListaGastos() {
     <div className="mt-8 text-center bg-gray-100 w-full">
       <h2 className="text-lg font-bold text-center">Gastos Registrados</h2>
       <SwipeableList>
-        {state.expenses.map((gasto) => (
+        {state.expenses?.length>0 ?(state.expenses.map((gasto) => (
           <SwipeableListItem
             key={gasto.id}
             swipeRight={{
@@ -41,7 +41,7 @@ function ListaGastos() {
               <p className="text-gray-500 text-sm">Fecha: {gasto.date}</p>
             </div>
           </SwipeableListItem>
-        ))}
+        ))) : <p>No hay gastos registrados</p>}
       </SwipeableList>
     </div>
   );

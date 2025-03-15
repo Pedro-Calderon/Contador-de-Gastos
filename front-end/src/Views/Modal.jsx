@@ -19,9 +19,12 @@ export default function Modal({ onClose }) {
           amount: Number(amount),
           category,
           date,
+
         };
         dispatch({ type: "ADD_EXPENSE", payload: newExpense });
        dispatch({ type: "ADD_EXPENSES", payload: { amount: amount } });
+       console.log("Datos a guardar: ",newExpense)
+
         onClose();
       } else {
         alert("Por favor, completa todos los campos correctamente.");
