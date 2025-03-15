@@ -38,10 +38,10 @@
   export const BudgetContext = createContext()
 
   export const BudgetProvider = ({children}) => {
-      const initialBudget = Number(localStorage.getItem("budget")) || 0.00.toFixed(2)
+      const initialBudget = Number(localStorage.getItem("budget")) || 0
       const initialExpenses = JSON.parse(localStorage.getItem("expenses")) || []
-      const initialTotalAmount = Number(localStorage.getItem("totalAmount")) || 0.00.toFixed(2)
-      const initialremain = Number(localStorage.getItem("remainingBudget")) || 0.00.toFixed(2)
+      const initialTotalAmount = Number(localStorage.getItem("totalAmount")) || 0
+      const initialremain = Number(localStorage.getItem("remainingBudget")) || 0
 
       const [state, dispatch] = useReducer(
           budgetReducer, 

@@ -1,17 +1,29 @@
-import React from 'react'
 import { Button } from "@/components/ui/button";
 import { List, Plus } from 'lucide-react'; 
 import { useBudget } from '../Contex/useBudget';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ModalContext } from '../Contex/ContexModal.jsx';
 import { createPortal } from 'react-dom';
 import Modal from './Modal.jsx';
 import ListaGastos from './ListaGastos.jsx';
 
 function Gastos() {
+    const [selectedCategory, setSelectedCategory] = useState("all")
+    console.log("aqui antes",selectedCategory)
+   
     const {state}= useBudget()
-      const {showModal, openModal, closeModal } = useContext(ModalContext)
-    
+    const {showModal, openModal, closeModal } = useContext(ModalContext)
+      const handledCategory = (e) => {
+        setSelectedCategory(e.target.value)
+    }
+      useEffect(() => {
+        if (selectedCategory === '0') {
+            return
+        }
+        const filter = state.expenses.filter(expenses => expenses.category === selectedCategory)
+        console.log(filter)
+    }, [selectedCategory, state.expenses])
+
 
     return (
         <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100 relative'>
@@ -31,24 +43,25 @@ function Gastos() {
             <div className='flex flex-col items-center justify-center border border-gray-400 border-opacity-50 p-9 rounded-md mt-8 w-full max-w-md'>
                 <div className='flex items-center w-full'>
                     <div className='mr-4 w-full'>Filtrar gastos</div>
-                    <select defaultValue="0" className='border border-gray-300 rounded-md p-2 mb-4 w-full'>
-                        <option value='0' disabled>--Seleccione--</option>
-                        <option value='1'>Ahorro</option>
-                        <option value='2'>Comida</option>
-                        <option value='3'>Casa</option>
-                        <option value='4'>Gastos Varios</option>
-                        <option value='5'>Ocio</option>
-                        <option value='6'>Salud</option>
-                        <option value='7'>Suscripciones</option>
+                    <select value={selectedCategory} onChange={handledCategory} className='border border-gray-300 rounded-md p-2 mb-4 w-full'>
+                        <option value='all' >--Seleccione--</option>
+                        <option value='Ahorro'>Ahorro</option>
+                        <option value='Comida'>Comida</option>
+                        <option value='Casa'>Casa</option>
+                        <option value='Gastos Varios'>Gastos Varios</option>
+                        <option value='Ocio'>Ocio</option>
+                        <option value='Salud'>Salud</option>
+                        <option value='Suscripciones'>Suscripciones</option>
                     </select>
                 </div>
             </div>
 
             <div className='flex flex-col items-center justify-center border border-gray-400 border-opacity-50 p-9 rounded-md mt-8 w-full max-w-md'>
                 <div className='flex items-center justify-center w-full'>
-                  { state.expenses?.length > 0 ? (
-                    
-                     <ListaGastos className="w-full" />
+                  { state.expenses?.length > 0  ? (
+                    selectedCategory === '0' ? <ListaGastos  className="w-full" /> 
+                    : <ListaGastos category={selectedCategory} className="w-full" />
+
                   ) : 
                     <p>No hay gastos registrados</p>
                   }
