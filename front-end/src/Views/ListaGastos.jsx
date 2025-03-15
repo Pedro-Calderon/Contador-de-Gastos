@@ -24,7 +24,7 @@ function ListaGastos() {
       <SwipeableList>
         {state.expenses?.length>0 ?(state.expenses.map((gasto) => (
           <SwipeableListItem
-            key={gasto.id}
+            key={String(gasto.id)}
             swipeRight={{
               content: <div className="bg-red-500 text-white p-4">Eliminar</div>,
               action: () => handleSwipeRight(gasto),

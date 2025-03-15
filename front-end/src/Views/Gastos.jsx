@@ -13,7 +13,6 @@ function Gastos() {
       const {showModal, openModal, closeModal } = useContext(ModalContext)
     
 
-    const gastado = 0.00.toFixed(2);
     return (
         <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100 relative'>
             <div className='flex flex-col items-center justify-center border border-gray-400 border-opacity-50 p-9 rounded-md w-full max-w-md'>
@@ -23,8 +22,8 @@ function Gastos() {
                     <div className='flex flex-col items-center'>
                         <Button variant="outline" className="w-full">Reset APP</Button>
                         <h1 className='text-blue-500 font-bold mt-4'>Presupuesto: <label className='font-bold text-black'>${state.budget}</label></h1>
-                        <h1 className='text-blue-500 font-bold mt-4'>Disponible: <label className='font-bold text-black'>${state.totalAmount }</label></h1>
-                        <h1 className='text-blue-500 font-bold mt-4'>Gastado: <label className='font-bold text-black'>${gastado}</label></h1>
+                        <h1 className='text-blue-500 font-bold mt-4'>Disponible: <label className='font-bold text-black'>${state.remainingBudget }</label></h1>
+                        <h1 className='text-blue-500 font-bold mt-4'>Gastado: <label className='font-bold text-black'>${state.totalAmount}</label></h1>
                     </div>
                 </div>
             </div>

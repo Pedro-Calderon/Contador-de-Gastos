@@ -3,7 +3,8 @@
   const Action = {
     SET_BUDGET: "SET_BUDGET",
     ADD_EXPENSE: "ADD_EXPENSE",
-    ADD_EXPENSES: "ADD_EXPENSES"  
+    ADD_EXPENSES: "ADD_EXPENSES",
+    ADD_SPENT: "ADD_SPENT"  
   }
 
   const budgetReducer = (state, action) => {
@@ -15,14 +16,21 @@
       case Action.ADD_EXPENSE:
       { const updatedExpenses = [...state.expenses, action.payload];
         localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+        console.log("Gasto: ",action.payload)
         return { ...state, expenses: updatedExpenses }}
 
       case Action.ADD_EXPENSES:
-       { const newExpensesAmount = action.payload.amount
+       { const newExpensesAmount = Number(action.payload.amount)
         const newTotalAmount = Number(state.totalAmount + newExpensesAmount)
         localStorage.setItem("totalAmount", newTotalAmount)
-        return { ...state, totalAmount: newTotalAmount, expenses: [...state.expenses, action.payload] }}
-      default:
+         // restar a presupuesto
+        const updatespent = Number(state.totalAmount + newExpensesAmount)
+        localStorage.setItem("spent", updatespent)
+        const remainingBudget = Number(state.budget - updatespent)
+        localStorage.setItem("remainingBudget", remainingBudget)
+        return { ...state, totalAmount: newTotalAmount,spent: updatespent, remainingBudget: remainingBudget }}
+      
+        default:
         return state
     }
   }
@@ -30,15 +38,17 @@
   export const BudgetContext = createContext()
 
   export const BudgetProvider = ({children}) => {
-      const initialBudget = Number(localStorage.getItem("budget")) || 0
+      const initialBudget = Number(localStorage.getItem("budget")) || 0.00.toFixed(2)
       const initialExpenses = JSON.parse(localStorage.getItem("expenses")) || []
-      const initialTotalAmount = Number(localStorage.getItem("totalAmount")) || 0
+      const initialTotalAmount = Number(localStorage.getItem("totalAmount")) || 0.00.toFixed(2)
+      const initialremain = Number(localStorage.getItem("remainingBudget")) || 0.00.toFixed(2)
 
       const [state, dispatch] = useReducer(
           budgetReducer, 
           {budget: initialBudget,
           expenses: initialExpenses,
-          totalAmount: initialTotalAmount 
+          totalAmount: initialTotalAmount ,
+          remainingBudget: initialremain
           }
         )
 
