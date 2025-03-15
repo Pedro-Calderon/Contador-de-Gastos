@@ -21,7 +21,6 @@ function ListaGastos(props) {
 
   return (
     <div className="mt-8 text-center bg-gray-100 w-full">
-      {console.log("aqui ",category)}
       <h2 className="text-lg font-bold text-center">Gastos Registrados</h2>
       <SwipeableList>
         {state.expenses?.length>0 ?(

@@ -4,7 +4,7 @@
     SET_BUDGET: "SET_BUDGET",
     ADD_EXPENSE: "ADD_EXPENSE",
     ADD_EXPENSES: "ADD_EXPENSES",
-    ADD_SPENT: "ADD_SPENT"  
+    RESET_APP: "RESET_APP"
   }
 
   const budgetReducer = (state, action) => {
@@ -25,10 +25,15 @@
         localStorage.setItem("totalAmount", newTotalAmount)
          // restar a presupuesto
         const updatespent = Number(state.totalAmount + newExpensesAmount)
-        localStorage.setItem("spent", updatespent)
         const remainingBudget = Number(state.budget - updatespent)
         localStorage.setItem("remainingBudget", remainingBudget)
         return { ...state, totalAmount: newTotalAmount,spent: updatespent, remainingBudget: remainingBudget }}
+      
+      case Action.RESET_APP:
+        localStorage.removeItem("expenses")
+        localStorage.removeItem("totalAmount")
+        localStorage.removeItem("remainingBudget")
+        return {...state, expenses: [], totalAmount: 0, remainingBudget: 0 }
       
         default:
         return state

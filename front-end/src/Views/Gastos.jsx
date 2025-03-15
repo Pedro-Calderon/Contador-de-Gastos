@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { List, Plus } from 'lucide-react'; 
 import { useBudget } from '../Contex/useBudget';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { ModalContext } from '../Contex/ContexModal.jsx';
 import { createPortal } from 'react-dom';
 import Modal from './Modal.jsx';
@@ -9,21 +9,16 @@ import ListaGastos from './ListaGastos.jsx';
 
 function Gastos() {
     const [selectedCategory, setSelectedCategory] = useState("all")
-    console.log("aqui antes",selectedCategory)
    
-    const {state}= useBudget()
+    const {state,dispatch}= useBudget()
     const {showModal, openModal, closeModal } = useContext(ModalContext)
       const handledCategory = (e) => {
         setSelectedCategory(e.target.value)
     }
-      useEffect(() => {
-        if (selectedCategory === '0') {
-            return
-        }
-        const filter = state.expenses.filter(expenses => expenses.category === selectedCategory)
-        console.log(filter)
-    }, [selectedCategory, state.expenses])
-
+    
+    const handledReset = () => {
+        dispatch({type: 'RESET_APP'})
+    }
 
     return (
         <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100 relative'>
@@ -32,7 +27,11 @@ function Gastos() {
                 <div className='flex items-center'>
                     <div className='bg-red-500 p-4 mr-4 text-white'>Aqui va la grafica</div>
                     <div className='flex flex-col items-center'>
-                        <Button variant="outline" className="w-full">Reset APP</Button>
+                        <Button className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={() => handledReset()}
+                       >
+                            Reset APP
+                        </Button>
                         <h1 className='text-blue-500 font-bold mt-4'>Presupuesto: <label className='font-bold text-black'>${state.budget}</label></h1>
                         <h1 className='text-blue-500 font-bold mt-4'>Disponible: <label className='font-bold text-black'>${state.remainingBudget }</label></h1>
                         <h1 className='text-blue-500 font-bold mt-4'>Gastado: <label className='font-bold text-black'>${state.totalAmount}</label></h1>
