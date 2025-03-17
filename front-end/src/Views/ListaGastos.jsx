@@ -10,13 +10,15 @@ function ListaGastos(props) {
   const category = props.category;
     
   const handleSwipeRight = (gasto) => {
-    //alert(`Eliminando gasto: ${gasto.name}`);
     dispatch({ type: "DEL_EXPENSES", payload: gasto.id });  
   };
 
   const handleSwipeLeft = (gasto) => {
-    alert(`Actualizando gasto: ${gasto.name}`);
+    
+    dispatch({ type: "RECOVERMODAL_EXPENSES", payload: gasto.id })
+    dispatch({ type: "TOGGLE_MODAL" })
     openModal()
+
   };
 
   return (

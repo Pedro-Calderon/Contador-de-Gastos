@@ -3,7 +3,7 @@ import { useState, createContext } from "react";
 // 🔹 Asegúrate de que el nombre sea coherente
 export const ModalContext = createContext();
 
-function ModalContextProvider({ children }) {  // 🔹 Corrige el nombre aquí
+function ModalContextProvider({ children }) {  
     const [showModal, setShowModal] = useState(false);
 
     function openModal() {
@@ -21,10 +21,10 @@ function ModalContextProvider({ children }) {  // 🔹 Corrige el nombre aquí
     };
 
     return (
-        <ModalContext.Provider value={data}>  {/* 🔹 Corrige aquí también */}
+        <ModalContext.Provider value={data}>  
             {children}
         </ModalContext.Provider>
     );
 }
 
-export default ModalContextProvider;  // 🔹 Exporta correctamente
+export default ModalContextProvider;  
