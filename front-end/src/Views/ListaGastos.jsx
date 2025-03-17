@@ -5,13 +5,13 @@ import '@sandstreamdev/react-swipeable-list/dist/styles.css';
 import { ModalContext } from '../Contex/ContexModal';
 
 function ListaGastos(props) {
-  const { state } = useBudget();
+  const { state, dispatch } = useBudget();
   const {openModal } = useContext(ModalContext)
   const category = props.category;
     
   const handleSwipeRight = (gasto) => {
-    alert(`Eliminando gasto: ${gasto.name}`);
-    // Aquí puedes agregar la lógica para eliminar el gasto
+    //alert(`Eliminando gasto: ${gasto.name}`);
+    dispatch({ type: "DEL_EXPENSES", payload: gasto.id });  
   };
 
   const handleSwipeLeft = (gasto) => {

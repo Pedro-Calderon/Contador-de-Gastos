@@ -6,6 +6,8 @@ import { ModalContext } from '../Contex/ContexModal.jsx';
 import { createPortal } from 'react-dom';
 import Modal from './Modal.jsx';
 import ListaGastos from './ListaGastos.jsx';
+import SimplePieChart from "../Shart/SimplePie.charts.jsx";
+
 
 function Gastos() {
     const [selectedCategory, setSelectedCategory] = useState("all")
@@ -25,7 +27,9 @@ function Gastos() {
             <div className='flex flex-col items-center justify-center border border-gray-400 border-opacity-50 p-9 rounded-md w-full max-w-md'>
                 <h1 className='text-4xl font-bold mb-4'>Contador de Gastos</h1>
                 <div className='flex items-center'>
-                    <div className='bg-red-500 p-4 mr-4 text-white'>Aqui va la grafica</div>
+                    <div className=' p-4 mr-4 text-white'>
+                    <SimplePieChart />
+                    </div>
                     <div className='flex flex-col items-center'>
                         <Button className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                         onClick={() => handledReset()}

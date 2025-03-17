@@ -4,7 +4,8 @@
     SET_BUDGET: "SET_BUDGET",
     ADD_EXPENSE: "ADD_EXPENSE",
     ADD_EXPENSES: "ADD_EXPENSES",
-    RESET_APP: "RESET_APP"
+    RESET_APP: "RESET_APP",
+    DEL_EXPENSES: "DEL_EXPENSES"
   }
 
   const budgetReducer = (state, action) => {
@@ -35,6 +36,20 @@
         localStorage.removeItem("remainingBudget")
         return {...state, expenses: [], totalAmount: 0, remainingBudget: 0 }
       
+      case Action.DEL_EXPENSES:
+       { 
+        const newExpenses = state.expenses.filter(element => element.id !== action.payload);
+        localStorage.setItem("expenses", JSON.stringify(newExpenses));
+        const newExpensesDelate = state.expenses.filter(element => element.id === action.payload);
+       
+        const newTotalAmount = state.totalAmount - newExpensesDelate[0].amount
+        localStorage.setItem("totalAmount", newTotalAmount)
+       
+        const remainingBudgets = newExpensesDelate[0].amount + state.remainingBudget
+        localStorage.setItem("remainingBudget", remainingBudgets)
+
+        return{... state, expenses: newExpenses, totalAmount: newTotalAmount, remainingBudget: remainingBudgets}
+       }
         default:
         return state
     }
@@ -46,7 +61,7 @@
       const initialBudget = Number(localStorage.getItem("budget")) || 0
       const initialExpenses = JSON.parse(localStorage.getItem("expenses")) || []
       const initialTotalAmount = Number(localStorage.getItem("totalAmount")) || 0
-      const initialremain = Number(localStorage.getItem("remainingBudget")) || 0
+      const initialremain = Number(localStorage.getItem("remainingBudget")) ||  0
 
       const [state, dispatch] = useReducer(
           budgetReducer, 
